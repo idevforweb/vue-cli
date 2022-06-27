@@ -1,0 +1,59 @@
+<template>
+    <!-- closeModal will be a custom event -->
+    <!-- used .self 'event modifier' option: clicking only on .backdrop will close the Modal and not any else within div -->
+    <div class="backdrop" @click.self="closeModal">
+        <!-- modal class is static class / binded sale :class is dynamic class set up  -->
+        <!-- if binded 'sale class', has a theme that equals sales, it will pick up the styles for that class -->
+        <div class="modal" :class="{ sale: theme === 'sale' }">
+            <!-- rendering dynamic content from modal props -->
+            <h1>{{ header }}</h1>
+            <p> {{ text }} </p>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    // exporting dynamic content from App.vue <Modal/> tag
+    props: ['header', 'text', 'theme'],
+    methods: {
+        closeModal() {
+            // Creating custom emit event to use .backdrop to close to modal
+            // named it 'close'
+            // emit event will be named 'close'
+            // this event communicates with <Modal/> and will choose the modals 'toggleModal' method 
+            this.$emit('close')
+        }
+    }
+}
+</script>
+
+<style scoped>
+    .modal {
+        width: 400px;
+        padding: 20px;
+        margin: 100px auto;
+        background: white;
+        border-radius: 10px;
+    }
+    .backdrop {
+        top: 0;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%
+    }
+    h1 {
+        color:aqua;
+    }
+
+    /* Styling for dynamic modal sale class */
+
+    .modal.sale {
+        background-color: crimson;
+        color:white;
+    }
+    .modal.sale h1 {
+        color: white;
+    }
+</style>
