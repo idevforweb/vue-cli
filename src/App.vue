@@ -23,6 +23,8 @@
     </Modal>
   </div>
 
+  <!-- Using teleport we can send different components to different roots in index.html -->
+  <!-- This will be sent to the .modal element -->
   <teleport to=".modals" v-if="showModalTwo">
     <Modal @close="toggleModalTwo">
       <!-- named slots dont automitcally render unless called  -->
